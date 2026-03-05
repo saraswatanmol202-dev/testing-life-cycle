@@ -1,0 +1,38 @@
+/* Epic Title: Real-time Status Updates */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header, main, footer {
+    padding: 20px;
+    text-align: center;
+}
+header {
+    background-color: #4CAF50;
+    color: white;
+}
+main {
+    padding: 20px;
+}
+footer {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+#notification-list {
+    list-style: none;
+    padding: 0;
+}
+#notification-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+#notification-list p {
+    margin: 0;
+}
+#notification-list small {
+    color: #999;
+}
