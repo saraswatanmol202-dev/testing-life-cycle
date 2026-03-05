@@ -1,0 +1,46 @@
+<!-- Epic Title: Real-time Status Updates -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Notifications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notifications.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Notifications</h1>
+    </header>
+    <main>
+        <section>
+            <ul id="notification-list">
+                {% for notification in notifications %}
+                <li>
+                    <p>{{ notification.message }}</p>
+                    <small>{{ notification.created_at }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Real-time Notifications</p>
+    </footer>
+    <script>
+        function fetchNotifications() {
+            $.getJSON("{{ url_for('notifications.api_notifications') }}", function(data) {
+                $('#notification-list').empty();
+                data.forEach(function(notification) {
+                    $('#notification-list').append('<li><p>' + notification.message + '</p><small>' + notification.created_at + '</small></li>');
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            setInterval(fetchNotifications, 5000); // Fetch new notifications every 5 seconds
+        });
+    </script>
+</body>
+</html>
