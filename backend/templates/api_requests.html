@@ -1,0 +1,55 @@
+<!-- Epic Title: Develop Secure APIs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/api_requests.css') }}">
+</head>
+<body>
+    <header>
+        <h1>API Requests</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Make Secure API Request</h2>
+            <form id="api-request-form">
+                <label for="endpoint">Endpoint:</label>
+                <input type="text" id="endpoint" name="endpoint" required><br>
+                <label for="request-body">Request Body:</label>
+                <textarea id="request-body" name="request_body" required></textarea><br>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+        <section>
+            <h2>Response</h2>
+            <pre id="response"></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Secure API Integration</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#api-request-form').on('submit', function(e) {
+            e.preventDefault();
+            let endpoint = $('#endpoint').val();
+            let request_body = $('#request-body').val();
+            $.ajax({
+                url: "{{ url_for('api_requests.api_integration') }}",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ endpoint: endpoint, request_body: request_body }),
+                success: function(response) {
+                    $('#response').text(JSON.stringify(response, null, 2));
+                },
+                error: function(error) {
+                    $('#response').text('Error: ' + error.responseText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
