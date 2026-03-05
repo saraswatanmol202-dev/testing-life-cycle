@@ -1,0 +1,32 @@
+<!-- Epic Title: Cross-Browser Compatibility -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-Browser Compatibility</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cross_browser.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Compatible User Experience</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('responsive.responsive') }}">Home</a></li>
+            <li><a href="{{ url_for('consistency.consistency') }}">Consistency</a></li>
+            <li><a href="{{ url_for('cross_browser.cross_browser') }}">Compatibility</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section>
+            <h2>Access on Any Major Browser</h2>
+            <p>Our portal is tested and works seamlessly on all major web browsers.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Compatible Design</p>
+    </footer>
+</body>
+</html>
