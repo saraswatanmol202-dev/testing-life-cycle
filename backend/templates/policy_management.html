@@ -1,0 +1,69 @@
+<!-- Epic Title: Access Policies for Different Roles -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/policy_management.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Manage Policies</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Define New Policy</h2>
+            <form method="POST">
+                <label for="name">Policy Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea><br>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+        <section>
+            <h2>Available Policies</h2>
+            <ul id="policies-list">
+                {% for policy in policies %}
+                <li>
+                    <p>{{ policy.name }} - {{ policy.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Assign Policy to Role</h2>
+            <form id="assign-policy-form">
+                <label for="role-id">Role ID:</label>
+                <input type="number" id="role-id" name="role_id" required><br>
+                <label for="policy-id">Policy ID:</label>
+                <select id="policy-id" name="policy_id">
+                    {% for policy in policies %}
+                    <option value="{{ policy.policy_id }}">{{ policy.name }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit">Assign</button>
+            </form>
+            <pre id="assign-result"></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Policy Management</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#assign-policy-form').on('submit', function(e) {
+            e.preventDefault();
+            let role_id = $('#role-id').val();
+            let policy_id = $('#policy-id').val();
+            $.post("{{ url_for('access_control.assign_policy') }}", {role_id: role_id, policy_id: policy_id}, function(data) {
+                $('#assign-result').text(JSON.stringify(data, null, 2));
+            }).fail(function(error) {
+                $('#assign-result').text('Error: ' + error.responseText);
+            });
+        });
+    </script>
+</body>
+</html>
