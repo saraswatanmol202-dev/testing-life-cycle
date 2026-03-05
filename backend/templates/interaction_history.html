@@ -1,0 +1,31 @@
+<!-- Epic Title: Maintain Interaction History -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/interaction_history.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Interaction History</h1>
+    </header>
+    <main>
+        <section>
+            <ul id="interaction-history-list">
+                {% for record in history %}
+                <li>
+                    <p>{{ record.action }}</p>
+                    <small>{{ record.timestamp }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Interaction History</p>
+    </footer>
+</body>
+</html>
