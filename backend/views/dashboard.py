@@ -1,7 +1,7 @@
-# Epic Title: Overview of Financial Activities
+# Epic Title: Customizable Widgets
 
 from flask import Blueprint, render_template, session, request, redirect, url_for
-from typing import List, Dict
+from typing import List
 
 # Importing models
 from backend.models.account import Account
@@ -29,14 +29,6 @@ def get_user_widgets(user_id: int) -> List[Widget]:
         Widget(2, user_id, 'Stock Ticker')
     ]
 
-def summarize_financial_activity(accounts: List[Account], transactions: Dict[int, List[Transaction]]) -> Dict[str, float]:
-    total_balance = sum(account.balance for account in accounts)
-    total_transactions_amount = sum(txn.amount for txns in transactions.values() for txn in txns)
-    return {
-        "total_balance": total_balance,
-        "total_transactions_amount": total_transactions_amount
-    }
-
 @dashboard_bp.route('/dashboard')
 def dashboard():
     user_id = session.get('user_id')
@@ -46,9 +38,8 @@ def dashboard():
     accounts = get_user_accounts(user_id)
     transactions = {account.account_id: get_account_transactions(account.account_id) for account in accounts}
     widgets = get_user_widgets(user_id)
-    summary = summarize_financial_activity(accounts, transactions)
     
-    return render_template('dashboard.html', accounts=accounts, transactions=transactions, widgets=widgets, summary=summary)
+    return render_template('dashboard.html', accounts=accounts, transactions=transactions, widgets=widgets)
 
 @dashboard_bp.route('/dashboard/add_widget', methods=['POST'])
 def add_widget():
