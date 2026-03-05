@@ -1,0 +1,69 @@
+<!-- Epic Title: Assign Permissions to Roles -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permission Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/permission_management.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Manage Permissions</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Define New Permission</h2>
+            <form method="POST">
+                <label for="name">Permission Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea><br>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+        <section>
+            <h2>Available Permissions</h2>
+            <ul id="permissions-list">
+                {% for permission in permissions %}
+                <li>
+                    <p>{{ permission.name }} - {{ permission.description }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Assign Permission to Role</h2>
+            <form id="assign-permission-form">
+                <label for="role-id">Role ID:</label>
+                <input type="number" id="role-id" name="role_id" required><br>
+                <label for="permission-id">Permission ID:</label>
+                <select id="permission-id" name="permission_id">
+                    {% for permission in permissions %}
+                    <option value="{{ permission.permission_id }}">{{ permission.name }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit">Assign</button>
+            </form>
+            <pre id="assign-result"></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Role Management</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#assign-permission-form').on('submit', function(e) {
+            e.preventDefault();
+            let role_id = $('#role-id').val();
+            let permission_id = $('#permission-id').val();
+            $.post("{{ url_for('permission_assignment.assign_permission') }}", {role_id: role_id, permission_id: permission_id}, function(data) {
+                $('#assign-result').text(JSON.stringify(data, null, 2));
+            }).fail(function(error) {
+                $('#assign-result').text('Error: ' + error.responseText);
+            });
+        });
+    </script>
+</body>
+</html>
