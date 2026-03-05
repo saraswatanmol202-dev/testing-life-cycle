@@ -1,0 +1,36 @@
+<!-- Epic Title: Data Synchronization Mechanisms -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Synchronization Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sync_status.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Data Synchronization</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Synchronization Status</h2>
+            <button id="sync-button">Synchronize Data</button>
+            <pre id="sync-result"></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Data Synchronization</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#sync-button').on('click', function() {
+            $.get("{{ url_for('synchronization.sync_data') }}", function(data) {
+                $('#sync-result').text(JSON.stringify(data, null, 2));
+            }).fail(function(error) {
+                $('#sync-result').text('Error: ' + error.responseText);
+            });
+        });
+    </script>
+</body>
+</html>
