@@ -1,0 +1,71 @@
+<!-- Epic Title: Maintain Separate Database -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Data Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/local_data.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Local Data Management</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Fetch Data</h2>
+            <form id="fetch-data-form">
+                <label for="data-type">Data Type:</label>
+                <input type="text" id="data-type" name="data_type" required><br>
+                <button type="submit">Fetch</button>
+            </form>
+            <pre id="fetch-result"></pre>
+        </section>
+        <section>
+            <h2>Save Data</h2>
+            <form id="save-data-form">
+                <label for="data-type-save">Data Type:</label>
+                <input type="text" id="data-type-save" name="data_type"><br>
+                <label for="content">Content:</label>
+                <textarea id="content" name="content"></textarea><br>
+                <button type="submit">Save</button>
+            </form>
+            <pre id="save-result"></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Local Data Management</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#fetch-data-form').on('submit', function(e) {
+            e.preventDefault();
+            let data_type = $('#data-type').val();
+            $.get("{{ url_for('local_data.get_data') }}", {type: data_type}, function(data) {
+                $('#fetch-result').text(JSON.stringify(data, null, 2));
+            }).fail(function(error) {
+                $('#fetch-result').text('Error: ' + error.responseText);
+            });
+        });
+
+        $('#save-data-form').on('submit', function(e) {
+            e.preventDefault();
+            let data_type = $('#data-type-save').val();
+            let content = $('#content').val();
+            $.ajax({
+                url: "{{ url_for('local_data.save_data') }}",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ data_type: data_type, content: content }),
+                success: function(response) {
+                    $('#save-result').text(JSON.stringify(response, null, 2));
+                },
+                error: function(error) {
+                    $('#save-result').text('Error: ' + error.responseText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
