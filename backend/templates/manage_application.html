@@ -1,0 +1,43 @@
+<!-- Epic Title: Save and Resume Incomplete Applications -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/application.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Manage Your Applications</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Current Applications</h2>
+            <ul id="application-list">
+                {% for application in applications %}
+                <li>
+                    <p>{{ application.content }}</p>
+                    <small>{{ application.status }} - Last Modified: {{ application.last_modified }}</small>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Save New Application</h2>
+            <form method="POST">
+                <textarea name="content" placeholder="Enter your application content here..."></textarea><br>
+                <select name="status">
+                    <option value="Incomplete">Incomplete</option>
+                    <option value="Complete">Complete</option>
+                </select><br>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Save Application</p>
+    </footer>
+</body>
+</html>
