@@ -1,15 +1,20 @@
-US-undefined:
+US-ADAM-1597:
   - backend/authentication/validators.py
   - backend/models/user.py
   - backend/views/register.py
   - backend/templates/register.html
-  - database/001_create_users_table.sql
+  - backend/database/001_create_users_table.sql
   - app.py
   - requirements.txt
+  - backend/authentication/password_utils.py
   - backend/views/login.py
   - backend/templates/login.html
-  - backend/authentication/password_utils.py
+  - database/001_create_users_table.sql
+
+US-ADAM-1606:
   - backend/models/product.py
   - backend/models/category.py
   - backend/database/001_create_categories_table.sql
   - backend/database/002_create_products_table.sql
+  - app.py
+  - requirements.txt
