@@ -1,20 +1,14 @@
 # Epic Title: Create Secure User Sessions
 
-from datetime import datetime, timedelta
-from typing import Optional
+from datetime import datetime
+from backend import db
 
-class Session:
-    def __init__(self, session_id: str, user_id: int, is_active: bool, last_activity: Optional[datetime] = None):
-        self.session_id = session_id
-        self.user_id = user_id
-        self.is_active = is_active
-        self.created_at = datetime.utcnow()
-        self.updated_at: Optional[datetime] = None
-        self.last_activity = last_activity if last_activity else datetime.utcnow()
+class Session(db.Model):
+    __tablename__ = 'sessions'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    last_activity = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    def is_expired(self) -> bool:
-        return datetime.utcnow() - self.last_activity >= timedelta(minutes=15)
-
-    def update_activity(self) -> None:
-        self.last_activity = datetime.utcnow()
-        self.updated_at = self.last_activity
+    def __repr__(self):
+        return f'<Session {self.id} for user {self.user_id}>'
