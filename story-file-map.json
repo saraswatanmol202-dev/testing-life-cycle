@@ -7,6 +7,21 @@ US-1:
   - database/002_create_sessions_table.sql
   - app.py
   - requirements.txt
+  - backend/models/account.py
+  - backend/models/transaction.py
+  - backend/views/dashboard.py
+  - database/002_create_accounts_table.sql
+  - database/003_create_transactions_table.sql
+  - backend/models/account_request.py
+  - backend/views/account_requests.py
+  - database/004_create_account_requests_table.sql
+  - backend/static/css/styles.css
+  - backend/templates/base.html
+  - backend/views/home.py
+  - backend/views/account.py
+  - backend/templates/home.html
+  - backend/templates/dashboard.html
+  - backend/templates/account.html
 
 US-2:
   - backend/authentication/session_management.py
@@ -17,3 +32,28 @@ US-2:
   - database/002_create_sessions_table.sql
   - app.py
   - requirements.txt
+  - backend/models/widget.py
+  - backend/views/widgets.py
+  - database/004_create_widgets_table.sql
+  - backend/models/service_request.py
+  - backend/views/service_requests.py
+  - database/005_create_service_requests_table.sql
+
+US-3:
+  - backend/authentication/security.py
+  - backend/models/user.py
+  - backend/views/register.py
+  - backend/views/login.py
+  - database/001_create_users_table.sql
+  - app.py
+  - requirements.txt
+  - backend/models/account.py
+  - backend/models/transaction.py
+  - backend/views/dashboard.py
+  - database/002_create_accounts_table.sql
+  - database/003_create_transactions_table.sql
+  - backend/models/account_request.py
+  - backend/models/service_request.py
+  - backend/views/request_processing.py
+  - database/004_create_account_requests_table.sql
+  - database/005_create_service_requests_table.sql
