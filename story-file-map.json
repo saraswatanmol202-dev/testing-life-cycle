@@ -6,11 +6,10 @@ US-undefined:
   - database/001_create_users_table.sql
   - app.py
   - requirements.txt
-  - backend/authentication/security.py
   - backend/views/login.py
   - backend/templates/login.html
-  - backend/authentication/password_security.py
+  - backend/authentication/password_utils.py
   - backend/models/product.py
-  - database/001_create_categories_table.sql
-  - database/002_create_products_table.sql
   - backend/models/category.py
+  - backend/database/001_create_categories_table.sql
+  - backend/database/002_create_products_table.sql
