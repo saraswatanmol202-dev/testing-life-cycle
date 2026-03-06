@@ -7,3 +7,13 @@ US-1:
   - database/002_create_sessions_table.sql
   - app.py
   - requirements.txt
+
+US-2:
+  - backend/authentication/session_management.py
+  - backend/models/session.py
+  - backend/models/user.py
+  - backend/views/login.py
+  - database/001_create_users_table.sql
+  - database/002_create_sessions_table.sql
+  - app.py
+  - requirements.txt
